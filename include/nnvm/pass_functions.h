@@ -143,7 +143,8 @@ inline Graph Gradient(
     std::function<int(const Node& node)> mirror_fun = nullptr,
     std::function<NodeEntry(const NodeEntry& src, const NodeEntry &like)>
     attr_hint_fun = nullptr,
-    std::vector<const Op*> zero_ops = std::vector<const Op*>()) {
+    std::vector<const Op*> zero_ops = std::vector<const Op*>(),
+    std::string copy_op_str = std::string()) {
   graph.attrs["grad_ys"] = std::make_shared<any>(std::move(ys));
 
   graph.attrs["grad_xs"] = std::make_shared<any>(std::move(xs));
@@ -162,6 +163,10 @@ inline Graph Gradient(
 
   if (zero_ops.size()) {
     graph.attrs["zero_ops"] = std::make_shared<any>(std::move(zero_ops));
+  }
+
+  if (copy_op_str != std::string()) {
+      graph.attrs["copy_op"] = std::make_shared<any>(std::move(copy_op_str));
   }
 
   return ApplyPass(std::move(graph), "Gradient");

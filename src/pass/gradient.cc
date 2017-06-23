@@ -217,6 +217,9 @@ Graph Gradient(Graph src) {
         copy_node->attrs.op = copy_op;
         copy_node->attrs.name = os.str();
         copy_node->inputs.emplace_back(entry.sum);
+        if (copy_node->attrs.op->attr_parser != nullptr) {
+            copy_node->attrs.op->attr_parser(&(copy_node->attrs));
+        }
         unique_grads.emplace(NodeEntry{std::move(copy_node), 0, 0}, std::make_pair(1, counter));
       }
     } else {

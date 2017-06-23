@@ -132,6 +132,8 @@ inline Graph PlaceDevice(Graph graph,
  * \param attr_hint_fun Optional, hint function to output a node that like src, but its attr is same as like.
  * \param zero_ops Optional, list of operators that outputs a single zero array. The first one
  *  must be zeros_like.
+ * \param copy_op_str Optional, name of the copy operation required to handle duplicates
+ *  on the edge of the graph
  * \return A new graph, whose outputs correspond to inputs of xs.
  */
 inline Graph Gradient(

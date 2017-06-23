@@ -225,7 +225,7 @@ Graph Gradient(Graph src) {
     ++counter;
   }
   if (copy_op != nullptr) {
-    for (auto kv : unique_grads) {
+    for (const auto& kv : unique_grads) {
       ret.outputs[kv.second.second] = kv.first;
     }
   }
